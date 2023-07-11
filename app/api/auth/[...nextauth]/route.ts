@@ -18,7 +18,7 @@ const handler = NextAuth({
       },
       async authorize(credentials, req) {
         const { email, password, usertype } = credentials as any;
-        const res = await fetch("https://payoutv20.justapay.in/login", {
+        const res = await fetch("http://api2.payoutapi.com/login", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

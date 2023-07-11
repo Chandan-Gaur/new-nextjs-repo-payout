@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const url = "https://payoutv20.justapay.in";
+const url = "http://api2.payoutapi.com/";
 
 export const addSinghTek = async (data: any) => {
   const res = await axios.post(`${url}/SinghTek/register`, data);
