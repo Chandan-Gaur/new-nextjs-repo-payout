@@ -1,4 +1,4 @@
-// File: /Users/chandangaur/development/Next JS Proj/new-next-js-singhtek-payout/app/merchants/page.tsx
+// File: C:\Users\HP_1\new-nextjs-repo-payout\app\merchants\page.tsx
 import * as entry from '../../../../app/merchants/page.js'
 import type { ResolvingMetadata } from 'next/dist/lib/metadata/types/metadata-interface.js'
 

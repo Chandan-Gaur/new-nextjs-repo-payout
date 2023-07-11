@@ -1,4 +1,4 @@
-// File: /Users/chandangaur/development/Next JS Proj/new-next-js-singhtek-payout/app/api/auth/[...nextauth]/route.ts
+// File: C:\Users\HP_1\new-nextjs-repo-payout\app\api\auth\[...nextauth]\route.ts
 import * as entry from '../../../../../../app/api/auth/[...nextauth]/route.js'
 import type { NextRequest } from 'next/server.js'
 

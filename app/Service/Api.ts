@@ -41,7 +41,7 @@ export const updateMerchantbyid = async (
   console.log(data);
   try {
     const res = await axios.patch(
-      `https://payoutv20.justapay.in/SinghTek/merchant/update/${merchantid}`,
+      `${url}/SinghTek/merchant/update/${merchantid}`,
       data,
       {
         maxBodyLength: Infinity,

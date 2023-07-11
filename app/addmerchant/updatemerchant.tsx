@@ -152,6 +152,7 @@ export default function UpdateMerchant(props: { rowdata: any; varToken: any }) {
 
   const onSubmit = async (data: FormInput) => {
     const Data = zfd.formData(FormSchema).parse(data);
+    console.log(Data);
     const businessDetail = {
       // merchant_name: Data.merchantName,
       business_name: Data.businessName,
@@ -174,20 +175,16 @@ export default function UpdateMerchant(props: { rowdata: any; varToken: any }) {
       state: Data.state,
       country: Data.country,
     };
-
-    const formData = {
-      // user_name: Data.userName,
-      // email: Data.email,
-      // mobile: Data.mobile,
-      // password: Data.password,
-      transaction_limit: parseInt(Data.transactionLimit.trim()),
-      amount: parseInt(Data.amount.trim()),
-      business_detail: businessDetail,
-      business_address: businessAddress,
-      companyPanCard: handleFiles(Data.companyPANCard),
-      companyGST: handleFiles(Data.companyGSTCertificate),
-      bankStatement: handleFiles(Data.bankStatement),
-    };
+  
+    const formData = new FormData();
+    formData.append("transaction_limit", (Data.transactionLimit));
+    formData.append("amount", (Data.amount));
+    formData.append("business_detail", JSON.stringify(businessDetail));
+    formData.append("business_address", JSON.stringify(businessAddress));
+    formData.append("companyPanCard",handleFiles(Data.companyPANCard) );
+    formData.append("companyGST", handleFiles(Data.companyGSTCertificate));
+    formData.append("bankStatement", handleFiles(Data.bankStatement));
+  
     setloading(true);
     console.log(formData);
     let result = await updateMerchantbyid(
@@ -198,6 +195,7 @@ export default function UpdateMerchant(props: { rowdata: any; varToken: any }) {
     console.log(result);
     setloading(false);
   };
+  
 
   const handleReset = () => {
     reset(); // Reset the form fields
@@ -264,7 +262,7 @@ export default function UpdateMerchant(props: { rowdata: any; varToken: any }) {
                         id="userName"
                         label="Username"
                         error={!!errors.userName}
-                        helperText={errors.userName?.message}
+                        helperText={!!errors.userName?.message}
                         {...register("userName")}
                       />
                     </FormControl>
@@ -276,7 +274,7 @@ export default function UpdateMerchant(props: { rowdata: any; varToken: any }) {
                         id="email"
                         label="Email"
                         error={!!errors.email}
-                        helperText={errors.email?.message}
+                        helperText={!!errors.email?.message}
                         {...register("email")}
                       />
                     </FormControl>
@@ -289,7 +287,7 @@ export default function UpdateMerchant(props: { rowdata: any; varToken: any }) {
                         label="Password"
                         type="password"
                         error={!!errors.password}
-                        helperText={errors.password?.message}
+                        helperText={!!errors.password?.message}
                         {...register("password")}
                       />
                     </FormControl>
@@ -301,7 +299,7 @@ export default function UpdateMerchant(props: { rowdata: any; varToken: any }) {
                         id="mobile"
                         label="Mobile Number"
                         error={!!errors.mobile}
-                        helperText={errors.mobile?.message}
+                        helperText={!!errors.mobile?.message}
                         {...register("mobile")}
                       />
                     </FormControl>
@@ -313,7 +311,7 @@ export default function UpdateMerchant(props: { rowdata: any; varToken: any }) {
                         id="merchantName"
                         label="Merchant Name"
                         error={!!errors.merchantName}
-                        helperText={errors.merchantName?.message}
+                        helperText={!!errors.merchantName?.message}
                         {...register("merchantName")}
                       />
                     </FormControl>
@@ -325,7 +323,7 @@ export default function UpdateMerchant(props: { rowdata: any; varToken: any }) {
                         id="businessName"
                         label="Business Name"
                         error={!!errors.businessName}
-                        helperText={errors.businessName?.message}
+                        helperText={!!errors.businessName?.message}
                         {...register("businessName")}
                       />
                     </FormControl>
@@ -337,7 +335,7 @@ export default function UpdateMerchant(props: { rowdata: any; varToken: any }) {
                         id="businessType"
                         label="Business Type"
                         error={!!errors.businessType}
-                        helperText={errors.businessType?.message}
+                        helperText={!!errors.businessType?.message}
                         {...register("businessType")}
                       />
                     </FormControl>
@@ -349,7 +347,7 @@ export default function UpdateMerchant(props: { rowdata: any; varToken: any }) {
                         id="businessCategory"
                         label="Business Category"
                         error={!!errors.businessCategory}
-                        helperText={errors.businessCategory?.message}
+                        helperText={!!errors.businessCategory?.message}
                         {...register("businessCategory")}
                       />
                     </FormControl>
@@ -361,7 +359,7 @@ export default function UpdateMerchant(props: { rowdata: any; varToken: any }) {
                         id="businessSubCategory"
                         label="Business Sub Category"
                         error={!!errors.businessSubCategory}
-                        helperText={errors.businessSubCategory?.message}
+                        helperText={!!errors.businessSubCategory?.message}
                         {...register("businessSubCategory")}
                       />
                     </FormControl>
@@ -373,7 +371,7 @@ export default function UpdateMerchant(props: { rowdata: any; varToken: any }) {
                         id="address"
                         label="Address"
                         error={!!errors.address}
-                        helperText={errors.address?.message}
+                        helperText={!!errors.address?.message}
                         {...register("address")}
                       />
                     </FormControl>
@@ -385,7 +383,7 @@ export default function UpdateMerchant(props: { rowdata: any; varToken: any }) {
                         id="pincode"
                         label="Pincode"
                         error={!!errors.pincode}
-                        helperText={errors.pincode?.message}
+                        helperText={!!errors.pincode?.message}
                         {...register("pincode")}
                       />
                     </FormControl>
@@ -397,7 +395,7 @@ export default function UpdateMerchant(props: { rowdata: any; varToken: any }) {
                         id="city"
                         label="City"
                         error={!!errors.city}
-                        helperText={errors.city?.message}
+                        helperText={!!errors.city?.message}
                         {...register("city")}
                       />
                     </FormControl>
@@ -409,7 +407,7 @@ export default function UpdateMerchant(props: { rowdata: any; varToken: any }) {
                         id="state"
                         label="State"
                         error={!!errors.state}
-                        helperText={errors.state?.message}
+                        helperText={!!errors.state?.message}
                         {...register("state")}
                       />
                     </FormControl>
@@ -421,7 +419,7 @@ export default function UpdateMerchant(props: { rowdata: any; varToken: any }) {
                         id="country"
                         label="Country"
                         error={!!errors.country}
-                        helperText={errors.country?.message}
+                        helperText={!!errors.country?.message}
                         {...register("country")}
                       />
                     </FormControl>
@@ -433,7 +431,7 @@ export default function UpdateMerchant(props: { rowdata: any; varToken: any }) {
                         id="companyExpenditure"
                         label="Company Expenditure"
                         error={!!errors.companyExpenditure}
-                        helperText={errors.companyExpenditure?.message}
+                        helperText={!!errors.companyExpenditure?.message}
                         {...register("companyExpenditure")}
                       />
                     </FormControl>
@@ -445,7 +443,7 @@ export default function UpdateMerchant(props: { rowdata: any; varToken: any }) {
                         id="website"
                         label="Website"
                         error={!!errors.website}
-                        helperText={errors.website?.message}
+                        helperText={!!errors.website?.message}
                         {...register("website")}
                       />
                     </FormControl>
@@ -457,7 +455,7 @@ export default function UpdateMerchant(props: { rowdata: any; varToken: any }) {
                         id="bankName"
                         label="Bank Name"
                         error={!!errors.bankName}
-                        helperText={errors.bankName?.message}
+                        helperText={!!errors.bankName?.message}
                         {...register("bankName")}
                       />
                     </FormControl>
@@ -469,7 +467,7 @@ export default function UpdateMerchant(props: { rowdata: any; varToken: any }) {
                         id="bankAccountNumber"
                         label="Bank Account Number"
                         error={!!errors.bankAccountNumber}
-                        helperText={errors.bankAccountNumber?.message}
+                        helperText={!!errors.bankAccountNumber?.message}
                         {...register("bankAccountNumber")}
                       />
                     </FormControl>
@@ -481,7 +479,7 @@ export default function UpdateMerchant(props: { rowdata: any; varToken: any }) {
                         id="bankIFSCCode"
                         label="Bank IFSC Code"
                         error={!!errors.bankIFSCCode}
-                        helperText={errors.bankIFSCCode?.message}
+                        helperText={!!errors.bankIFSCCode?.message}
                         {...register("bankIFSCCode")}
                       />
                     </FormControl>
@@ -493,7 +491,7 @@ export default function UpdateMerchant(props: { rowdata: any; varToken: any }) {
                         id="gst"
                         label="GST"
                         error={!!errors.gst}
-                        helperText={errors.gst?.message}
+                        helperText={!!errors.gst?.message}
                         {...register("gst")}
                       />
                     </FormControl>
@@ -505,7 +503,7 @@ export default function UpdateMerchant(props: { rowdata: any; varToken: any }) {
                         id="panNumber"
                         label="PAN Number"
                         error={!!errors.panNumber}
-                        helperText={errors.panNumber?.message}
+                        helperText={!!errors.panNumber?.message}
                         {...register("panNumber")}
                       />
                     </FormControl>
@@ -517,7 +515,7 @@ export default function UpdateMerchant(props: { rowdata: any; varToken: any }) {
                         id="aadharNumber"
                         label="Aadhar Number"
                         error={!!errors.aadharNumber}
-                        helperText={errors.aadharNumber?.message}
+                        helperText={!!errors.aadharNumber?.message}
                         {...register("aadharNumber")}
                       />
                     </FormControl>
@@ -528,7 +526,7 @@ export default function UpdateMerchant(props: { rowdata: any; varToken: any }) {
                         id="transactionLimit"
                         label="Transaction Limit"
                         error={!!errors.transactionLimit}
-                        helperText={!errors.transactionLimit?.message}
+                        helperText={!!!errors.transactionLimit?.message}
                         {...register("transactionLimit")}
                       />
                     </FormControl>
@@ -540,7 +538,7 @@ export default function UpdateMerchant(props: { rowdata: any; varToken: any }) {
                         id="amount"
                         label="Amount"
                         error={!!errors.amount}
-                        helperText={!errors.amount?.message}
+                        helperText={!!!errors.amount?.message}
                         {...register("amount")}
                       />
                     </FormControl>
